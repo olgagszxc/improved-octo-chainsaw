@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Clock, Facebook, Instagram, MapPin, Phone } from "lucide-react";
+import { Clock, Facebook, Instagram, Phone } from "lucide-react";
 
 import { ContactForm } from "@/components/contact-form";
+import { LocationSection } from "@/components/location-section";
 import { Reveal } from "@/components/section-heading";
 import { contact } from "@/content/site";
 
@@ -115,24 +116,7 @@ function Contact() {
         </div>
       </section>
 
-      <section className="bg-card">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_2fr] lg:px-8">
-          <Reveal className="flex flex-col gap-3">
-            <MapPin aria-hidden="true" className="size-8 text-primary" />
-            <h2 className="headline text-3xl text-foreground">Visit the gym</h2>
-            <p className="text-muted-foreground">{contact.address}</p>
-          </Reveal>
-          <Reveal delay={100}>
-            <iframe
-              title="Map showing Kaizen Fitness on Bugallon Street, Paniqui"
-              src={contact.mapEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="aspect-[16/9] w-full rounded-lg border-0 grayscale"
-            />
-          </Reveal>
-        </div>
-      </section>
+      <LocationSection />
     </>
   );
 }

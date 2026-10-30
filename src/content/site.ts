@@ -61,7 +61,9 @@ export const contact = {
   hours: "Monday to Saturday, 7:00 AM – 10:00 PM",
   hoursClosed: "Closed Sundays",
   mapEmbedUrl:
-    "https://www.google.com/maps?q=Bugallon%20Street%2C%20Estacion%20Paniqui%2C%20Tarlac&output=embed",
+    "https://www.google.com/maps?q=Kaizen%20Fitness%2C%20Bugallon%20Street%2C%20Estacion%2C%20Paniqui%2C%20Tarlac&output=embed",
+  directionsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=Kaizen%20Fitness%2C%20Bugallon%20Street%2C%20Estacion%2C%20Paniqui%2C%20Tarlac",
 };
 
 // The promo switches itself off after its last day (Philippine time).

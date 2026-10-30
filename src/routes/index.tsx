@@ -12,6 +12,7 @@ import { Hero } from "@/components/hero";
 import { SectionHeading, Reveal } from "@/components/section-heading";
 import { FaqSection } from "@/components/faq-section";
 import { CtaBand } from "@/components/cta-band";
+import { LocationSection } from "@/components/location-section";
 import { Button } from "@/components/ui/button";
 import { images, referralPromoData } from "@/content/site";
 
@@ -245,6 +246,7 @@ function Index() {
       </section>
 
       <FaqSection />
+      <LocationSection />
       <CtaBand />
     </>
   );

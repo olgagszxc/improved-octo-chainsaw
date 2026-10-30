@@ -50,7 +50,14 @@ export function SiteFooter() {
                 className="mt-0.5 size-4 shrink-0 text-primary"
                 aria-hidden="true"
               />
-              <span>{contact.address}</span>
+              <a
+                href={contact.directionsUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="transition-colors hover:text-primary"
+              >
+                {contact.address}
+              </a>
             </li>
             <li>
               <a
