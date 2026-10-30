@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { consultationSchema, contactSchema } from "./schemas";
 import type { Database } from "@/integrations/supabase/types";
+import { sendAlert } from "./email-alert";
 
 /**
  * Server-side submission handlers for the public website forms.
@@ -95,8 +96,8 @@ async function insertRow(
 
 export const submitConsultation = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => consultationSchema.parse(data))
-  .handler(async ({ data }) =>
-    insertRow(
+  .handler(async ({ data }) => {
+    const result = await insertRow(
       "consultation_requests",
       {
         full_name: data.fullName,
@@ -110,13 +111,30 @@ export const submitConsultation = createServerFn({ method: "POST" })
         consent: data.consent,
       },
       "We could not save your request right now.",
-    ),
-  );
+    );
+    if (result.ok) {
+      await sendAlert(
+        `New consultation booking: ${data.fullName}`,
+        [
+          ["Name", data.fullName],
+          ["Email", data.email],
+          ["Mobile", data.phone],
+          ["Goal", data.fitnessGoal],
+          ["Experience", data.fitnessExperience],
+          ["Preferred date", data.preferredDate],
+          ["Preferred time", data.preferredTime],
+          ["Message", data.message],
+        ],
+        data.email,
+      );
+    }
+    return result;
+  });
 
 export const submitContactMessage = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => contactSchema.parse(data))
-  .handler(async ({ data }) =>
-    insertRow(
+  .handler(async ({ data }) => {
+    const result = await insertRow(
       "contact_messages",
       {
         name: data.name,
@@ -125,5 +143,18 @@ export const submitContactMessage = createServerFn({ method: "POST" })
         message: data.message,
       },
       "We could not send your message right now.",
-    ),
-  );
+    );
+    if (result.ok) {
+      await sendAlert(
+        `New website message: ${data.subject}`,
+        [
+          ["Name", data.name],
+          ["Email", data.email],
+          ["Subject", data.subject],
+          ["Message", data.message],
+        ],
+        data.email,
+      );
+    }
+    return result;
+  });
