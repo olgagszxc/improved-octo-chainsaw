@@ -30,6 +30,7 @@ import {
   timePreferences,
 } from "@/content/site";
 import { submitConsultation } from "@/lib/inquiries.functions";
+import { submitErrorRef } from "@/lib/utils";
 import { consultationSchema, type ConsultationInput } from "@/lib/schemas";
 
 const emptyValues: ConsultationInput = {
@@ -100,9 +101,10 @@ export function ConsultationForm() {
       } else {
         setServerError(result.error);
       }
-    } catch {
+    } catch (err) {
+      console.error("Form submission failed:", err);
       setServerError(
-        `Something went wrong sending your request. Please try again, or call us on ${contact.phoneDisplay}.`,
+        `Something went wrong sending your request. Please try again, or call us on ${contact.phoneDisplay}. (ref: C1 ${submitErrorRef(err)})`,
       );
     }
   }

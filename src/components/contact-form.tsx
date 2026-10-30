@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { contact } from "@/content/site";
 import { submitContactMessage } from "@/lib/inquiries.functions";
+import { submitErrorRef } from "@/lib/utils";
 import { contactSchema, type ContactInput } from "@/lib/schemas";
 
 const emptyValues: ContactInput = {
@@ -46,9 +47,10 @@ export function ContactForm() {
       } else {
         setServerError(result.error);
       }
-    } catch {
+    } catch (err) {
+      console.error("Form submission failed:", err);
       setServerError(
-        `Something went wrong sending your message. Please try again, or call us on ${contact.phoneDisplay}.`,
+        `Something went wrong sending your message. Please try again, or call us on ${contact.phoneDisplay}. (ref: C1 ${submitErrorRef(err)})`,
       );
     }
   }
