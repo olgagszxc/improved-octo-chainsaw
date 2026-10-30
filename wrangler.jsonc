@@ -1,0 +1,10 @@
+{
+  // Merged into the generated deploy config by the build. The name must match
+  // the Cloudflare worker, and the values here are public (publishable key).
+  "name": "improved-octo-chainsaw",
+  "keep_vars": true,
+  "vars": {
+    "SUPABASE_URL": "https://dddnxvjnkolkntpfcwsw.supabase.co",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_TCGU-Iey8u14-hIF69cqhA_PbXmNKEQ"
+  }
+}
