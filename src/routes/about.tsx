@@ -101,20 +101,41 @@ function About() {
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         <SectionHeading eyebrow="Coaching" title="MEET THE COACHES" />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {coaches.map((c, i) => (
             <Reveal
               key={c.name}
               delay={i * 80}
-              className="rounded-lg border-l-4 border-primary bg-card p-6"
+              className="overflow-hidden rounded-lg border-b-4 border-primary bg-card"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary">
-                {c.role}
-              </p>
-              <h3 className="headline mt-1 text-2xl text-foreground">
-                {c.name}
-              </h3>
-              <p className="mt-2 text-muted-foreground">{c.text}</p>
+              <div className="relative aspect-[4/5] bg-gradient-to-br from-secondary to-background">
+                {c.photo ? (
+                  <img
+                    src={c.photo}
+                    alt={`${c.name}, ${c.role} at Kaizen Fitness`}
+                    className="size-full object-cover object-top"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex size-full items-center justify-center">
+                    <img
+                      src={images.logo}
+                      alt=""
+                      aria-hidden="true"
+                      className="w-1/2 opacity-20"
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+                  {c.role}
+                </p>
+                <h3 className="headline mt-1 text-2xl text-foreground">
+                  {c.name}
+                </h3>
+                <p className="mt-2 text-muted-foreground">{c.text}</p>
+              </div>
             </Reveal>
           ))}
         </div>
