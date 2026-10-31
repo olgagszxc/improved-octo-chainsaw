@@ -19,6 +19,8 @@ import plates from "@/assets/photos/plates.jpg";
 import dumbbellFloor from "@/assets/photos/dumbbell-floor.jpg";
 import pendulumSquat from "@/assets/photos/pendulum-squat.jpg";
 import treadmills from "@/assets/photos/treadmills.jpg";
+import coachMond from "@/assets/photos/coach-mond.jpg";
+import coachDexter from "@/assets/photos/coach-dexter.jpg";
 
 // All photos are Kaizen Fitness' own, cropped from the gym's Instagram posts.
 export const images = {
@@ -224,11 +226,13 @@ export const coaches: {
 }[] = [
   {
     name: "Coach Mond",
+    photo: coachMond,
     role: "Coach & HIIT class lead",
     text: "Leads our high-energy HIIT group sessions: full-body circuits with structure and a push that brings out your best.",
   },
   {
     name: "Coach Dexter",
+    photo: coachDexter,
     role: "In-house coach",
     text: "Our in-house coach, great for beginners, first-time guests and anyone ready to start again.",
   },
