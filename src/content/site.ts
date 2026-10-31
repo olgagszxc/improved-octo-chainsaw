@@ -213,7 +213,15 @@ export const coachingRates = [
 export const coachingNote =
   "Coaching fees do not include the gym rate, which is charged separately.";
 
-export const coaches = [
+// To add a coach photo: save it in src/assets/photos/, import it at the top
+// of this file, and set `photo` on that coach. Until then the card shows a
+// branded placeholder.
+export const coaches: {
+  name: string;
+  role: string;
+  text: string;
+  photo?: string;
+}[] = [
   {
     name: "Coach Mond",
     role: "Coach & HIIT class lead",
