@@ -8,6 +8,7 @@
  */
 
 import logo from "@/assets/photos/logo.png";
+import logoHero from "@/assets/photos/logo-hero.jpg";
 import gymFloor from "@/assets/photos/gym-floor-hiit.jpg";
 import storefront from "@/assets/photos/storefront-night.jpg";
 import team from "@/assets/photos/team.jpg";
@@ -22,6 +23,7 @@ import treadmills from "@/assets/photos/treadmills.jpg";
 // All photos are Kaizen Fitness' own, cropped from the gym's Instagram posts.
 export const images = {
   logo,
+  logoHero,
   gymFloor,
   storefront,
   team,
