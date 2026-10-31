@@ -240,8 +240,8 @@ export const coaches: {
   {
     name: "Coach Brian",
     photo: coachBrian,
-    role: "Coach",
-    text: "Part of the Kaizen coaching team, here to help you train with good form and keep making progress.",
+    role: "Strength & Conditioning Coach",
+    text: "Builds real strength the right way: solid technique, smart progression and the conditioning to back it up, whether you're just starting or chasing a new PR.",
   },
 ];
 
