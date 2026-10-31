@@ -101,7 +101,7 @@ function About() {
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         <SectionHeading eyebrow="Coaching" title="MEET THE COACHES" />
-        <div className="mx-auto mt-12 grid max-w-3xl gap-5 sm:grid-cols-2">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {coaches.map((c, i) => (
             <Reveal
               key={c.name}
