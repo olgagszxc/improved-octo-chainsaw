@@ -16,6 +16,14 @@ export type Database = {
     Tables: {
       consultation_requests: {
         Row: {
+          heard_from: string | null
+          heard_from_detail: string | null
+          ref: string | null
+          utm_source: string | null
+          utm_medium: string | null
+          utm_campaign: string | null
+          landing_page: string | null
+          referrer_site: string | null
           consent: boolean
           created_at: string
           email: string
@@ -29,6 +37,14 @@ export type Database = {
           preferred_time: string
         }
         Insert: {
+          heard_from?: string | null
+          heard_from_detail?: string | null
+          ref?: string | null
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          landing_page?: string | null
+          referrer_site?: string | null
           consent?: boolean
           created_at?: string
           email: string
@@ -42,6 +58,14 @@ export type Database = {
           preferred_time: string
         }
         Update: {
+          heard_from?: string | null
+          heard_from_detail?: string | null
+          ref?: string | null
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          landing_page?: string | null
+          referrer_site?: string | null
           consent?: boolean
           created_at?: string
           email?: string
@@ -58,6 +82,14 @@ export type Database = {
       }
       contact_messages: {
         Row: {
+          heard_from: string | null
+          heard_from_detail: string | null
+          ref: string | null
+          utm_source: string | null
+          utm_medium: string | null
+          utm_campaign: string | null
+          landing_page: string | null
+          referrer_site: string | null
           created_at: string
           email: string
           id: string
@@ -66,6 +98,14 @@ export type Database = {
           subject: string
         }
         Insert: {
+          heard_from?: string | null
+          heard_from_detail?: string | null
+          ref?: string | null
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          landing_page?: string | null
+          referrer_site?: string | null
           created_at?: string
           email: string
           id?: string
@@ -74,6 +114,14 @@ export type Database = {
           subject: string
         }
         Update: {
+          heard_from?: string | null
+          heard_from_detail?: string | null
+          ref?: string | null
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          landing_page?: string | null
+          referrer_site?: string | null
           created_at?: string
           email?: string
           id?: string

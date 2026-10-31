@@ -27,10 +27,13 @@ import {
   contact,
   fitnessExperiences,
   fitnessGoals,
+  heardFromNeedsDetail,
   timePreferences,
 } from "@/content/site";
 import { submitConsultation } from "@/lib/inquiries.functions";
 import { submitErrorRef } from "@/lib/utils";
+import { getAttribution } from "@/lib/attribution";
+import { HeardFromFields } from "@/components/heard-from-fields";
 import { consultationSchema, type ConsultationInput } from "@/lib/schemas";
 
 const emptyValues: ConsultationInput = {
@@ -41,6 +44,8 @@ const emptyValues: ConsultationInput = {
   fitnessExperience: "",
   preferredDate: "",
   preferredTime: "",
+  heardFrom: "",
+  heardFromDetail: "",
   message: "",
   consent: false,
 };
@@ -94,7 +99,16 @@ export function ConsultationForm() {
   async function onSubmit(values: ConsultationInput) {
     setServerError(null);
     try {
-      const result = await submit({ data: values });
+      const result = await submit({
+        data: {
+          ...values,
+          // Only keep the follow-up answer if its box was showing.
+          heardFromDetail: heardFromNeedsDetail.includes(values.heardFrom ?? "")
+            ? values.heardFromDetail
+            : "",
+          attribution: getAttribution(),
+        },
+      });
       if (result.ok) {
         setSubmittedName(values.fullName.split(" ")[0] ?? values.fullName);
         form.reset(emptyValues);
@@ -246,6 +260,7 @@ export function ConsultationForm() {
             </FormItem>
           )}
         />
+        <HeardFromFields />
         <FormField
           control={form.control}
           name="message"
