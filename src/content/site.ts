@@ -8,6 +8,7 @@
  */
 
 import logo from "@/assets/photos/logo.png";
+import logoHero from "@/assets/photos/logo-hero.jpg";
 import gymFloor from "@/assets/photos/gym-floor-hiit.jpg";
 import storefront from "@/assets/photos/storefront-night.jpg";
 import team from "@/assets/photos/team.jpg";
@@ -22,6 +23,7 @@ import treadmills from "@/assets/photos/treadmills.jpg";
 // All photos are Kaizen Fitness' own, cropped from the gym's Instagram posts.
 export const images = {
   logo,
+  logoHero,
   gymFloor,
   storefront,
   team,
@@ -36,6 +38,10 @@ export const images = {
 
 export const site = {
   name: "Kaizen Fitness",
+  // The live address. Change this when the site moves to its own domain so
+  // link previews on Facebook and Messenger keep showing the right image.
+  url: "https://improved-octo-chainsaw.ashleyarzadon11.workers.dev",
+  ogImage: "/og-image.jpg",
   tagline: "Built by discipline. Defined by progress.",
 };
 
@@ -66,12 +72,11 @@ export const contact = {
     "https://www.google.com/maps/dir/?api=1&destination=Kaizen%20Fitness%2C%20Bugallon%20Street%2C%20Estacion%2C%20Paniqui%2C%20Tarlac",
 };
 
-// The promo switches itself off after its last day (Philippine time).
-const referralPromoEnds = new Date("2026-11-01T00:00:00+08:00");
-
+// To stop showing the promo, set `active` to false. To show a deadline again,
+// set `endDate`, for example "December 31, 2026".
 export const referralPromoData = {
-  active: Date.now() < referralPromoEnds.getTime(),
-  endDate: "October 31, 2026",
+  active: true,
+  endDate: null as string | null,
   headline: "REFER. SAVE. REPEAT.",
   rewards: [
     {

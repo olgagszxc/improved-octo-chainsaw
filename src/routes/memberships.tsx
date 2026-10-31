@@ -115,7 +115,7 @@ function Memberships() {
             ))}
           </ul>
         </div>
-        <Reveal className="flex flex-col gap-5 rounded-lg border border-primary bg-card p-8">
+        <Reveal className="flex flex-col gap-5 rounded-lg border border-primary bg-card p-6 sm:p-8">
           <h2 className="headline text-2xl text-foreground">RATES</h2>
           <PriceList title="Gym access" rates={gymRates} />
           <PriceList title="Coaching" rates={coachingRates} />

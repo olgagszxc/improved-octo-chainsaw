@@ -129,11 +129,11 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-muted-foreground sm:flex-row sm:px-6 lg:px-8">
           <span>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </span>
-          <span className="headline tracking-widest text-foreground/70">
+          <span className="headline text-balance text-center tracking-widest text-foreground/70">
             CONTINUOUS IMPROVEMENT. EVERY SINGLE DAY.
           </span>
         </div>

@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import { MobileCta } from "@/components/mobile-cta";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { site } from "@/content/site";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -100,7 +101,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "Built by discipline. Defined by progress. Book a free consultation.",
         },
         { property: "og:type", content: "website" },
+        { property: "og:image", content: site.url + site.ogImage },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        {
+          property: "og:image:alt",
+          content: "Kaizen Fitness, strength training gym in Paniqui, Tarlac",
+        },
         { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:image", content: site.url + site.ogImage },
       ],
       links: [
         {

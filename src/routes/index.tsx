@@ -91,8 +91,9 @@ function Index() {
   return (
     <>
       <Hero
-        imageSrc={images.gymFloor}
-        imageAlt="Members training with dumbbells on the Kaizen Fitness gym floor"
+        imageSrc={images.logoHero}
+        imageAlt="The Kaizen Fitness logo over the squat racks at the gym"
+        imageLayout="side"
         title="BUILT BY DISCIPLINE. DEFINED BY PROGRESS."
         primaryCta={{
           label: "Book Your Free Consultation",
@@ -187,7 +188,11 @@ function Index() {
             <div className="flex flex-col gap-6">
               <SectionHeading
                 align="left"
-                eyebrow={`Members only · Until ${referralPromoData.endDate}`}
+                eyebrow={
+                  referralPromoData.endDate
+                    ? `Members only · Until ${referralPromoData.endDate}`
+                    : "Members only"
+                }
                 title={referralPromoData.headline}
                 description={referralPromoData.eligibility}
               />
