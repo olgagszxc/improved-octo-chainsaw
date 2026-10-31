@@ -127,6 +127,23 @@ export const fitnessExperiences = [
 
 export const timePreferences = ["Morning", "Afternoon", "Evening"] as const;
 
+/** Answers for "How did you hear about us?" on the booking and contact forms. */
+export const heardFromOptions = [
+  "Instagram",
+  "Facebook",
+  "TikTok",
+  "Google search",
+  "Friend or member",
+  "Walked past the gym",
+  "Other",
+] as const;
+
+/** Answers that show the follow-up "who / where" box. */
+export const heardFromNeedsDetail: readonly string[] = [
+  "Friend or member",
+  "Other",
+];
+
 export const facilitiesCategories = [
   {
     name: "Strength Training",

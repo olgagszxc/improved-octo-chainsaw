@@ -16,6 +16,7 @@ import { SiteHeader } from "@/components/site-header";
 import { site } from "@/content/site";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { recordVisit } from "../lib/attribution";
 
 function NotFoundComponent() {
   return (
@@ -144,6 +145,11 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Remember how this visitor first arrived (?ref=, utm tags, referring site).
+  useEffect(() => {
+    recordVisit();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

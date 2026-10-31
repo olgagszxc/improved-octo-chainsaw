@@ -15,9 +15,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { contact } from "@/content/site";
+import { contact, heardFromNeedsDetail } from "@/content/site";
 import { submitContactMessage } from "@/lib/inquiries.functions";
 import { submitErrorRef } from "@/lib/utils";
+import { getAttribution } from "@/lib/attribution";
+import { HeardFromFields } from "@/components/heard-from-fields";
 import { contactSchema, type ContactInput } from "@/lib/schemas";
 
 const emptyValues: ContactInput = {
@@ -25,6 +27,8 @@ const emptyValues: ContactInput = {
   email: "",
   subject: "",
   message: "",
+  heardFrom: "",
+  heardFromDetail: "",
 };
 
 export function ContactForm() {
@@ -40,7 +44,16 @@ export function ContactForm() {
   async function onSubmit(values: ContactInput) {
     setServerError(null);
     try {
-      const result = await submit({ data: values });
+      const result = await submit({
+        data: {
+          ...values,
+          // Only keep the follow-up answer if its box was showing.
+          heardFromDetail: heardFromNeedsDetail.includes(values.heardFrom ?? "")
+            ? values.heardFromDetail
+            : "",
+          attribution: getAttribution(),
+        },
+      });
       if (result.ok) {
         setSent(true);
         form.reset(emptyValues);
@@ -135,6 +148,7 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+        <HeardFromFields optional />
 
         {serverError ? (
           <p role="alert" className="text-sm text-destructive sm:col-span-2">

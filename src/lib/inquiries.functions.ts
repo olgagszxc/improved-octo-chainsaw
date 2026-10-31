@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
-import { consultationSchema, contactSchema } from "./schemas";
+import { consultationSchema, contactSchema, type Attribution } from "./schemas";
 import type { Database } from "@/integrations/supabase/types";
 import { sendAlert } from "./email-alert";
 
@@ -50,10 +50,38 @@ function getPublicClient() {
 
 type InsertResult = { ok: true } | { ok: false; error: string };
 
+/** The "How did you hear about us?" columns, shared by both tables. */
+function sourceColumns(
+  heardFrom: string | undefined,
+  heardFromDetail: string | undefined,
+  attribution: Attribution | undefined,
+): Record<string, string | null> {
+  const a = attribution ?? {};
+  return {
+    heard_from: heardFrom || null,
+    heard_from_detail: heardFromDetail || null,
+    ref: a.ref || null,
+    utm_source: a.utmSource || null,
+    utm_medium: a.utmMedium || null,
+    utm_campaign: a.utmCampaign || null,
+    landing_page: a.landingPage || null,
+    referrer_site: a.referrer || null,
+  };
+}
+
+function sourceSummary(
+  heardFrom: string | undefined,
+  heardFromDetail: string | undefined,
+): string | undefined {
+  if (!heardFrom) return undefined;
+  return heardFromDetail ? `${heardFrom} (${heardFromDetail})` : heardFrom;
+}
+
 async function insertRow(
   table: "consultation_requests" | "contact_messages",
   row: Record<string, unknown>,
   failureLead: string,
+  sourceCols: Record<string, unknown> = {},
 ): Promise<InsertResult> {
   const supabase = getPublicClient();
   if (!supabase) {
@@ -64,7 +92,18 @@ async function insertRow(
   }
   try {
     // The row shape is checked by the zod schema before it reaches here.
-    const { error } = await supabase.from(table).insert(row as never);
+    let { error } = await supabase
+      .from(table)
+      .insert({ ...row, ...sourceCols } as never);
+    if (error?.code === "PGRST204" && Object.keys(sourceCols).length > 0) {
+      // The "heard from" columns have not been added in Supabase yet
+      // (setup/supabase-forms-setup.sql). Save the booking without them
+      // rather than losing it.
+      console.warn(
+        `Form submission to ${table}: source columns missing, saved without them. Run setup/supabase-forms-setup.sql.`,
+      );
+      ({ error } = await supabase.from(table).insert(row as never));
+    }
     if (error && !error.code) {
       // supabase-js reports network failures as an error without a code.
       console.error(
@@ -111,6 +150,7 @@ export const submitConsultation = createServerFn({ method: "POST" })
         consent: data.consent,
       },
       "We could not save your request right now.",
+      sourceColumns(data.heardFrom, data.heardFromDetail, data.attribution),
     );
     if (result.ok) {
       await sendAlert(
@@ -123,6 +163,11 @@ export const submitConsultation = createServerFn({ method: "POST" })
           ["Experience", data.fitnessExperience],
           ["Preferred date", data.preferredDate],
           ["Preferred time", data.preferredTime],
+          [
+            "Heard about us",
+            sourceSummary(data.heardFrom, data.heardFromDetail),
+          ],
+          ["Link tag", data.attribution?.ref || data.attribution?.utmSource],
           ["Message", data.message],
         ],
         data.email,
@@ -143,6 +188,7 @@ export const submitContactMessage = createServerFn({ method: "POST" })
         message: data.message,
       },
       "We could not send your message right now.",
+      sourceColumns(data.heardFrom, data.heardFromDetail, data.attribution),
     );
     if (result.ok) {
       await sendAlert(
@@ -151,6 +197,10 @@ export const submitContactMessage = createServerFn({ method: "POST" })
           ["Name", data.name],
           ["Email", data.email],
           ["Subject", data.subject],
+          [
+            "Heard about us",
+            sourceSummary(data.heardFrom, data.heardFromDetail),
+          ],
           ["Message", data.message],
         ],
         data.email,
