@@ -187,7 +187,11 @@ function Index() {
             <div className="flex flex-col gap-6">
               <SectionHeading
                 align="left"
-                eyebrow={`Members only · Until ${referralPromoData.endDate}`}
+                eyebrow={
+                  referralPromoData.endDate
+                    ? `Members only · Until ${referralPromoData.endDate}`
+                    : "Members only"
+                }
                 title={referralPromoData.headline}
                 description={referralPromoData.eligibility}
               />

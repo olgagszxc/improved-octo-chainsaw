@@ -39,9 +39,11 @@ function Referral() {
           <SectionHeading
             align="left"
             eyebrow={
-              p.active
-                ? `Members only · Until ${p.endDate}`
-                : "Referral program"
+              !p.active
+                ? "Referral program"
+                : p.endDate
+                  ? `Members only · Until ${p.endDate}`
+                  : "Members only"
             }
             title={p.headline}
             description={
@@ -85,7 +87,7 @@ function Referral() {
                 {p.terms.map((t) => (
                   <li key={t}>{t}</li>
                 ))}
-                <li>Promo runs until {p.endDate}.</li>
+                {p.endDate ? <li>Promo runs until {p.endDate}.</li> : null}
               </ul>
               <p className="mt-4 text-sm text-muted-foreground">
                 To refer someone, message {contact.facebookName} on Facebook, DM{" "}
